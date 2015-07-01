@@ -139,7 +139,3 @@ place_ship(createShip(4));
 place_ship(createShip(5));
 
 renderField();
-//createShip(3);
-//createShip(4);
-//createShip(5); 
-//console.log(spielfeld);
