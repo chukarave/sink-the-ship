@@ -18,7 +18,6 @@ function renderField() {
     field.innerHTML = "";
     var x,y;
     var element;
-    var intx, inty, point_obj;
     for (y = 0; y < spielfeld.length; y++) {
         for (x = 0; x < spielfeld[y].length; x++) {
             element = document.createElement("div");
@@ -31,21 +30,30 @@ function renderField() {
                 element.style.backgroundColor = "blue";
             }
             field.appendChild(element);
-            element.addEventListener("click", function(e){
-                console.log(e.target.getAttribute("data-x"), e.target.getAttribute("data-y"));
-             
-            intx = parseInt(e.target.getAttribute("data-x"), 10);
-            inty = parseInt(e.target.getAttribute("data-y"), 10);
-            point_obj = {
-                 x: intx,
-                 y: inty
-            }
-            console.log(checkPointConent(point_obj));
-            })
+            element.addEventListener("click", handleClick);
         }
     }
 }
 
+// if clicked point is part of a ship, paint green
+function handleClick(e) {
+      var intx, inty;
+      var point_obj;
+
+      console.log(e.target.getAttribute("data-x"), e.target.getAttribute("data-y"));
+
+      intx = parseInt(e.target.getAttribute("data-x"), 10);
+      inty = parseInt(e.target.getAttribute("data-y"), 10);
+      point_obj = {
+             x: intx,
+             y: inty
+      }
+      if (checkPointConent(point_obj)) {
+        e.target.style.backgroundColor = "green";
+      }
+}
+
+// check if point is ship or water
 function checkPointConent(p) {
     if (spielfeld[p.y][p.x]) {
     return true;
@@ -53,8 +61,6 @@ function checkPointConent(p) {
     return false;
     }
 }
-
-
 
 
 // all possible directions from one point (right, down, left, up)
@@ -91,10 +97,10 @@ function ship(point, direction, slength) {
         )
     }
     // array of arrays of objects - [[{point a},{point b}], [{point a},{point b}]]
-    return possible_route; 
+    return possible_route;
 }
 
-// point is false when: 
+// point is false when:
 // if the given point lies outside the array borders
 // if the given point is true == occupied
 function check_point(p) {
@@ -144,7 +150,7 @@ function createShip(slength) {
         return ok;
     })
 
-    // if more than 1 direction is returned valid, choose randomely. 
+    // if more than 1 direction is returned valid, choose randomely.
     if (valid_ships.length >= 1) {
         return valid_ships[Math.floor(Math.random() * valid_ships.length)];
     // if no direction is returned valid, start over with the same ship length.
@@ -154,7 +160,7 @@ function createShip(slength) {
 
 }
 
-// set all the elements representing the ship in the 
+// set all the elements representing the ship in the
 // field array as true.
 function place_ship(ship) {
     for (var i = 0; i < ship.length; i++) {
