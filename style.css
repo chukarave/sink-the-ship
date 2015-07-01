@@ -1,0 +1,10 @@
+.ship {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+}
+
+#field {
+    width: 10em;
+    height: 10em;
+}

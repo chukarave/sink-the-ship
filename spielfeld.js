@@ -14,21 +14,47 @@ for (i = 0; i < 10; i++) {
 
 // create field as string with . and #
 function renderField() {
+    var field = document.getElementById("field");
+    field.innerHTML = "";
     var x,y;
-    var str ="";
+    var element;
+    var intx, inty, point_obj;
     for (y = 0; y < spielfeld.length; y++) {
         for (x = 0; x < spielfeld[y].length; x++) {
+            element = document.createElement("div");
+            element.setAttribute("class", "ship");
+            element.setAttribute("data-x", x);
+            element.setAttribute("data-y", y);
             if (spielfeld[y][x]) {
-                str += "#";
+                element.style.backgroundColor = "red";
             } else {
-                str += ".";
+                element.style.backgroundColor = "blue";
             }
+            field.appendChild(element);
+            element.addEventListener("click", function(e){
+                console.log(e.target.getAttribute("data-x"), e.target.getAttribute("data-y"));
+             
+            intx = parseInt(e.target.getAttribute("data-x"), 10);
+            inty = parseInt(e.target.getAttribute("data-y"), 10);
+            point_obj = {
+                 x: intx,
+                 y: inty
+            }
+            console.log(checkPointConent(point_obj));
+            })
         }
-        str += "\n";
     }
-
-    console.log(str);
 }
+
+function checkPointConent(p) {
+    if (spielfeld[p.y][p.x]) {
+    return true;
+    } else {
+    return false;
+    }
+}
+
+
 
 
 // all possible directions from one point (right, down, left, up)
