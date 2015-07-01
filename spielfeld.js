@@ -93,15 +93,18 @@ function createShip(slength) {
         y: Math.floor(Math.random() * (9 - 0 + 1))
     }
 
-    // generate an array of four vectors from the starting point in four different directions
+    // generate an array of four ships.
+    // Each ship is an array of points on the field, depending on the ship's length
     var ships = directions.map(function (d) {
         return ship(point, d, slength)
     });
 
-    // returns an array of all the valid points around each point in the length of the ship 
+    // returns an array of arrays
+    // Each array represents a valid ship.
     var valid_ships = ships.filter(function(s) {
         var i, p;
         var ok = true;
+        // the four directions around each point in the length of the ship are checked.
         for (i = 0; i < s.length; i++) {
             p = s[i];
             // ok has to be assigned to ok again, so that its 'true' value will be renewed.
