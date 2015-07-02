@@ -12,7 +12,7 @@ for (i = 0; i < 10; i++) {
         }
 }
 
-// create field as string with . and #
+// create field as grid of blue (water) and red (ships) cells.
 function renderField() {
     var field = document.getElementById("field");
     field.innerHTML = "";
@@ -35,12 +35,12 @@ function renderField() {
     }
 }
 
-// if clicked point is part of a ship, paint green
+// if the clicked cell is part of a ship, paint green.
 function handleClick(e) {
       var intx, inty;
       var point_obj;
 
-      console.log(e.target.getAttribute("data-x"), e.target.getAttribute("data-y"));
+      //console.log(e.target.getAttribute("data-x"), e.target.getAttribute("data-y"));
 
       intx = parseInt(e.target.getAttribute("data-x"), 10);
       inty = parseInt(e.target.getAttribute("data-y"), 10);
@@ -53,7 +53,7 @@ function handleClick(e) {
       }
 }
 
-// check if point is ship or water
+// check if point is ship or water.
 function checkPointConent(p) {
     if (spielfeld[p.y][p.x]) {
     return true;
